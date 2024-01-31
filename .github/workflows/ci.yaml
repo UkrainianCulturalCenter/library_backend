@@ -19,6 +19,7 @@ jobs:
         uses: py-actions/flake8@v2
         with:
           max-line-length: "121"
+          ignore: "E203, E133, W503"
 
   black:
     runs-on: ubuntu-latest
