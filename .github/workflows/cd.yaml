@@ -1,0 +1,24 @@
+name: CD_to_VPS_Kharkiv
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SECRET }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd ${{  secrets.VPS_PATH_BACKEND }}
+            git pull origin main
+            docker-compose rm -sf
+            docker-compose build
+            docker-compose up -d
+            docker image prune -af
