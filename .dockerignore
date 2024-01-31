@@ -1,0 +1,8 @@
+.venv/
+.idea/
+.env
+.dockerignore
+.gitignore
+.flake8
+README.md
+.github

@@ -13,3 +13,4 @@ if __name__ == "__main__":
             break
         except socket.error as ex:
             time.sleep(1)
+            print(f"Error connecting to DB: {ex}\nwait one second...")
