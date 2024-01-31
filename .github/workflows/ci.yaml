@@ -17,8 +17,6 @@ jobs:
           python-version: "3.12"
       - name: flake8 Lint
         uses: py-actions/flake8@v2
-        with:
-          ignore: "E203, E133, W503"
 
   black:
     runs-on: ubuntu-latest
