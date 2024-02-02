@@ -127,7 +127,10 @@ REST_FRAMEWORK = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "UCC library API",
-    "DESCRIPTION": "Documentation for the API project 'Library of the Ukrainian Cultural Center (UCC) in Montenegro'",
+    "DESCRIPTION": (
+        "Documentation for the API project 'Library"
+        "of the Ukrainian Cultural Center (UCC) in Montenegro'"
+    ),
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_SETTINGS": {
