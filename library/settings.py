@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "tmp",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -74,7 +75,7 @@ DATABASES = {
         "USER": os.environ.get("POSTGRES_USER"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "HOST": os.environ.get("POSTGRES_HOST"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
+        "PORT": os.environ.get("POSTGRES_PORT_CONTAINER"),
     }
 }
 
@@ -119,3 +120,24 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "UCC library API",
+    "DESCRIPTION": (
+        "Documentation for the API project 'Library"
+        "of the Ukrainian Cultural Center (UCC) in Montenegro'"
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "defaultModelRendering": "model",
+        "defaultModelsRendering": "model",
+        "defaultModelExpandDepth": 2,
+        "defaultModelsExpandWidth": 2,
+    },
+}
