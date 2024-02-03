@@ -1,0 +1,38 @@
+services:
+ api:
+   build:
+     context: .
+   env_file:
+     - .env
+   expose:
+     - 8000
+   command: >
+      sh -c "python db/wait_db.py &&
+            python manage.py makemigrations &&
+            python manage.py migrate &&
+            gunicorn --bind 0.0.0.0:8000 library.wsgi
+            "
+   volumes:
+     - /Users/kostyantynzivenko/Desktop/my_experiments/UCC/library_backend:/app
+   depends_on:
+     - db
+
+ db:
+   image: postgres:16-alpine3.19
+   restart: always
+   env_file:
+     - .env
+   ports:
+     - "${POSTGRES_PORT_DOCKER_HOST}:${POSTGRES_PORT_CONTAINER}"
+   volumes:
+     - my_db:${PGDATA}
+
+ nginx:
+   build: ./nginx
+   ports:
+     - 80:80
+   depends_on:
+     - api
+
+volumes:
+  my_db:
