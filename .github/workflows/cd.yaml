@@ -21,4 +21,4 @@ jobs:
             docker-compose -f docker-compose.prod.yaml rm -sf
             docker-compose -f docker-compose.prod.yaml build
             docker-compose -f docker-compose.prod.yaml up -d
-            docker image prune -af
+            docker image prune -
