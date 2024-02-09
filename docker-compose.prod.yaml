@@ -10,7 +10,7 @@ services:
       sh -c "python db/wait_db.py &&
             python manage.py makemigrations &&
             python manage.py migrate &&
-            python gunicorn --bind 0.0.0.0:8000 library.wsgi
+            gunicorn --bind 0.0.0.0:8000 library.wsgi
             "
    volumes:
      - /Users/kostyantynzivenko/Desktop/my_experiments/UCC/library_backend:/app
