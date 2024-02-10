@@ -22,8 +22,6 @@ services:
    restart: always
    env_file:
      - .env
-   ports:
-     - "${POSTGRES_PORT_DOCKER_HOST}:${POSTGRES_PORT_CONTAINER}"
    volumes:
      - my_db:${PGDATA}
 
