@@ -18,7 +18,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "test_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("ENV", False) == "DEV" else False
 
-ALLOWED_HOSTS = ["81.17.140.55", "localhost", ""]
+ALLOWED_HOSTS = [
+    "ukranian.space",
+    "www.ukranian.space",
+    "library.ukranian.space",
+    "www.library.ukranian.space",
+    "81.17.140.55",
+    "localhost",
+    "",
+]
 
 
 # Application definition
