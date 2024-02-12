@@ -33,7 +33,6 @@ services:
 #     - ./nginx/key.pem:/etc/key.pem
    ports:
      - 80:80
-     - 443:443
    command: [ nginx-debug, '-g', 'daemon off;' ]
    depends_on:
      - api
