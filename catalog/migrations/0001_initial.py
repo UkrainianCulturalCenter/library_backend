@@ -45,8 +45,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "db_table_comment": (
-                    "Describes a literary genre, such as: a novel, )"
-                    "(a detective story, a children's tale, fantasy, etc."
+                    "Describes a literary genre, such as: a novel, "
+                    "a detective story, a children's tale, fantasy, etc."
                 ),
                 "ordering": ["name"],
             },
@@ -86,8 +86,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 "db_table_comment": (
-                    "Describes the type of object, such )"
-                    "(as: book, magazine, board game, etc."
+                    "Describes the type of object, such "
+                    "as: book, magazine, board game, etc."
                 ),
                 "ordering": ["name"],
             },
