@@ -44,7 +44,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=31, unique=True)),
             ],
             options={
-                "db_table_comment": "Describes a literary genre, such as: a novel, a detective story, a children's tale, fantasy, etc.",
+                "db_table_comment": (
+                    "Describes a literary genre, such as: a novel, )"
+                    "(a detective story, a children's tale, fantasy, etc."
+                ),
                 "ordering": ["name"],
             },
         ),
@@ -82,7 +85,10 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=31, unique=True)),
             ],
             options={
-                "db_table_comment": "Describes the type of object, such as: book, magazine, board game, etc.",
+                "db_table_comment": (
+                    "Describes the type of object, such )"
+                    "(as: book, magazine, board game, etc."
+                ),
                 "ordering": ["name"],
             },
         ),
