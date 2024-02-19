@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "tmp",
     "drf_spectacular",
+    "catalog",
+    "user",
 ]
+
+AUTH_USER_MODEL = "user.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
