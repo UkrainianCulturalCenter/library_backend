@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -18,15 +19,19 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "test_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get("ENV", False) == "DEV" else False
 
-ALLOWED_HOSTS = [
-    "ukranian.space",
-    "www.ukranian.space",
-    "library.ukranian.space",
-    "www.library.ukranian.space",
-    "81.17.140.55",
-    "localhost",
-    "",
-]
+ALLOWED_HOSTS = (
+    []
+    if os.environ.get("ENV", False) == "DEV"
+    else [
+        "ukranian.space",
+        "www.ukranian.space",
+        "library.ukranian.space",
+        "www.library.ukranian.space",
+        "81.17.140.55",
+        "localhost",
+        "",
+    ]
+)
 
 
 # Application definition
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "catalog",
     "user",
+    "rest_framework_simplejwt",
 ]
 
 AUTH_USER_MODEL = "user.User"
@@ -135,6 +141,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"anon": "300/day", "user": "5000/day"},
 }
 
 SPECTACULAR_SETTINGS = {
@@ -152,4 +166,11 @@ SPECTACULAR_SETTINGS = {
         "defaultModelExpandDepth": 2,
         "defaultModelsExpandWidth": 2,
     },
+}
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+    "ROTATE_REFRESH_TOKENS": False,
 }
