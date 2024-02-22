@@ -1,4 +1,9 @@
+import pathlib
+import uuid
+
+from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 
@@ -60,6 +65,18 @@ class Tag(models.Model):
         db_table_comment = "Tags that users can create and add."
 
 
+def image_filename(instance: "Image", filename: str) -> pathlib.Path:
+    filename = (
+        f"{slugify(pathlib.Path(filename).name)}-{uuid.uuid4()}"
+        + pathlib.Path(filename).suffix
+    )
+    return pathlib.Path("upload/image/") / pathlib.Path(filename)
+
+
+class Image(models.Model):
+    picture = models.ImageField(upload_to=image_filename)
+
+
 class Book(models.Model):
     class Conditions(models.TextChoices):
         """The condition of the book (magazine, game, etc.):
@@ -83,3 +100,5 @@ class Book(models.Model):
     cost_of_compensation = models.DecimalField(
         max_digits=6, decimal_places=2, default=10.0, null=True
     )
+    owner = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
+    images = models.ManyToManyField(Image, blank=True, related_name="books", null=True)
