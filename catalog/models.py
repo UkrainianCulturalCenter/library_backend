@@ -67,7 +67,7 @@ class Tag(models.Model):
 
 def image_filename(instance: "Image", filename: str) -> pathlib.Path:
     filename = (
-        f"{slugify(pathlib.Path(filename).name)}-{uuid.uuid4()}"
+        f"{slugify(pathlib.Path(filename).stem)}-{uuid.uuid4()}"
         + pathlib.Path(filename).suffix
     )
     return pathlib.Path("upload/image/") / pathlib.Path(filename)
@@ -90,6 +90,7 @@ class Book(models.Model):
         DISASSEMBLED = "D", _("Disassembled: missing some elements.")
 
     title = models.CharField(max_length=255)
+    year_of_publication = models.IntegerField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     isbn = models.CharField(max_length=13, null=True, blank=True)
     type = models.ForeignKey("Type", on_delete=models.PROTECT)
@@ -100,5 +101,13 @@ class Book(models.Model):
     cost_of_compensation = models.DecimalField(
         max_digits=6, decimal_places=2, default=10.0, null=True
     )
-    owner = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
-    images = models.ManyToManyField(Image, blank=True, related_name="books", null=True)
+    owner = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, null=True, blank=True
+    )
+    images = models.ManyToManyField(Image, blank=True, related_name="books")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ["title"]
