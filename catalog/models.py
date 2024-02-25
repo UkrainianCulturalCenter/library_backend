@@ -104,10 +104,33 @@ class Book(models.Model):
     owner = models.ForeignKey(
         get_user_model(), on_delete=models.PROTECT, null=True, blank=True
     )
-    images = models.ManyToManyField(Image, blank=True, related_name="books")
+    images = models.ManyToManyField("Image", blank=True, related_name="books")
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = ["title"]
+
+
+class Displacement(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.PROTECT)
+    to_user = models.ForeignKey(
+        get_user_model(), on_delete=models.PROTECT, related_name="books_i_took"
+    )
+    via_user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.PROTECT,
+        related_name="books_that_i_allowed_to_take",
+    )  # TODO: CHECK in (SELECT user.id FROM user WHERE user.is_staff is True)
+    datetime = models.DateTimeField(auto_now_add=True)
+    notes = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return (
+            f"{self.book} moved to user: {self.to_user}, "
+            f"datetime: {self.datetime} (moved by staff-user: {self.via_user})"
+        )
+
+    class Meta:
+        ordering = ["-datetime"]
