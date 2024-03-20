@@ -58,6 +58,8 @@ exclude =
     .mypy_cache,
     # virtual env
     .venv
+    # migrations file
+    */migrations/*.py
 # Provide a comma-separate list of glob patterns to include for checks.
 filename =
     *.py
