@@ -23,4 +23,5 @@ urlpatterns = [
         name="redoc",
     ),
     path("api/v1/user/", include("user.urls", namespace="user")),
+    path("user/", include("user.urls_site", namespace="user_site"))
 ] + static(settings.MEDIA_URL, document_root=settings)
